@@ -22,7 +22,7 @@ longitude = first_result["longitude"]
 print("latitude:", latitude)
 print("longitude:", longitude)
 
-Forcaste_URL = " https://api.open-meteo.com/v1/forecast?current_weather=true" 
+Forcaste_URL = "https://api.open-meteo.com/v1/forecast?current_weather=true" 
 
 forecast_parameters = {
     "longitude": longitude,
