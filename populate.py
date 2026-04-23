@@ -8,8 +8,6 @@ username = os.getenv("DB_USER")
 password = os.getenv("password")
 database = os.getenv("DATABASE_URL") 
 
-print(database) 
-
 class WeatherReport:
     def __init__(self, city, country, latitude, longitude, temperature, elevation, windspeed, observation_time):
         self.city = city
