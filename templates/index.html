@@ -1,0 +1,50 @@
+{% extends "base.html" %}   <!-- Uses base.html hedaer -->
+
+{% block content %} <!-- Start of this page content -->
+
+<!-- Hero section - Big minage + Text -->
+ <div style="
+    height: 350px; 
+    background-image: url('/static/sky.png');
+    background-size: cover;    
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+">
+    <!-- Text on top of sky image -->
+    <div>
+        <h1>Local Weather Tracker</h1>
+        <p>Get real-time weather data</p>    
+    </div>
+</div>
+
+<!-- Add New Observation box -->
+ <h5>Add New Observation</h5>
+
+<form action="/ingest" method="POST">
+    <div style="display: flex; gap: 10px; margin-top: 10px;">
+        <!-- City input -->
+        <input type="text" name="city" placeholder="City">
+        <!-- Country input -->
+        <input type="text" name="country" placeholder="Country">
+        <!-- Button -->
+        <button class="btn" type="submit">Get Weather</button>
+    </div>
+</form>
+
+<!-- Show result if weather was fetched -->
+{% if weather %}
+<div style="margin-top: 20px; padding: 1rem; border: 1px solid #ddd; border-radius: 5px;">
+    <h5>{{ weather.city }}, {{ weather.country }}</h5>
+    <p>Temperature: {{ weather.temperature }}°C</p>
+    <p>Windspeed: {{ weather.windspeed }} km/h</p>
+    <p>Latitude: {{ weather.latitude }}</p>
+    <p>Longitude: {{ weather.longitude }}</p>
+    <p>Time: {{ weather.observation_time }}</p>
+    
+</div>
+{% endif %}
+
+{% endblock %}
