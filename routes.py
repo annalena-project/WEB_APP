@@ -7,7 +7,7 @@ from flask import Flask, render_template, redirect,  url_for, abort, request
 import requests
 
 # Import database functions and the WeatherReport object
-from populate import DatabaseManager, WeatherReport
+from database_manager import DatabaseManager, WeatherReport
 # Create connection to the database
 db = DatabaseManager() 
 
