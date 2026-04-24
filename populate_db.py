@@ -1,0 +1,83 @@
+# Fetches live weather data for 10 cities and saves it to the database
+
+import requests                                               # To call the weather API
+from database_manager import DatabaseManager, WeatherReport   # Database tools
+
+#---------------------- List of Cities ----------------------------------------
+# List of cities I want to add to the database
+cities = [                      
+    ("Chicago", "USA"),
+    ("New York", "USA"),
+    ("Paris", "France"),
+    ("Rome", "Italy"),
+    ("Copenhagen", "Denmark"),
+    ("Stockholm", "Sweden"),
+    ("Barcelona", "Spain"),
+    ("London", "UK"),
+    ("Berlin", "Germany"),
+    ("Amsterdam", "Netherlands")
+]
+
+#--------------------- Fetch And Save Weather Data -----------------------------
+
+# Create database connection 
+db = DatabaseManager()      
+
+for city, country in cities:
+    # Find the coordinates for each city //  Call API to find latitude and longitude for the city
+    geo = requests.get( "https://geocoding-api.open-meteo.com/v1/search",params={"name": city, "count": 1}).json()["results"][0]
+   
+
+    latitude = geo["latitude"]
+    longitude = geo["longitude"]
+
+    # Call weather API to get current weather
+    weather = requests.get("https://api.open-meteo.com/v1/forecast", params={"latitude": latitude, "longitude": longitude, "current_weather": "true"}).json()["current_weather"]
+
+    # Create a WeatherReport object with all the data
+    report = WeatherReport(
+        city,
+        country,
+        latitude,
+        longitude,
+        weather["temperature"],
+        0,                          # elevation is not used here so I just set it to 0
+        weather["windspeed"],
+        weather["time"]
+    )
+
+    # Save data to database
+    db.insert_observation(report)  
+
+# Get all observations from database
+data = db.get_all_observations() 
+
+# Print all observations
+for row in data:
+    print(f"ID: {row[0]}, City: {row[1]}, Temp: {row[5]}") 
+
+# Get one observation by ID number 1
+print(db.get_observation_by_id(1)) 
+
+
+
+#--------------------- COMMENTED OUT ----------------------------------------------------
+# These lines are kept here for testing purposes
+
+#db.update(1, 59.33, 18.06)         # Update latitude & longitude for ID number 1
+#print(db.get_observation_by_id(1)) # Checking updated observation
+
+# db.delete_observation_by_id(1)      # Delete observation with ID number 1
+
+#----------------------------------------------------------------------------------------
+
+
+# Get all observations again 
+data = db.get_all_observations()    
+
+# Print all observations
+for row in data:
+     print(f"ID: {row[0]}, City: {row[1]}, Temp: {row[5]}")  
+
+db.con.close()      # Close database connection 
+
