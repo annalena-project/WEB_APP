@@ -1,0 +1,46 @@
+{% extends "base.html" %}  <!-- Use the main layout (navbar, styling) -->
+
+{% block content %}  <!-- Start of this page content -->
+
+<div class="container mt-5">
+
+    <!-- Page title -->
+    <h3>Observation Details</h3>
+
+    <!-- Show data from ONE observation -->
+    <!-- observation = the data we sent from Flask -->
+
+    <p><strong>ID:</strong> {{ observation[0] }}</p> <!-- ID number -->
+    <p><strong>City:</strong> {{ observation[1] }}</p> <!-- City name -->
+    <p><strong>Country:</strong> {{ observation[2] }}</p> <!-- Country -->
+
+    <!-- Longitude + Latitude -->
+     <p><strong>Latitude:</strong> {{ observation[3] }}</p>
+    <p><strong>Longitude:</strong> {{ observation[4] }}</p>
+
+    <!-- Temperature (we show Celcius) -->
+    <p><strong>Temperature:</strong> {{ observation[5] }}°C</p>
+
+    <!-- Wind speed -->
+    <p><strong>Wind:</strong> {{ observation[7] }} km/h</p>
+
+    <!-- Time when observation was saved -->
+    <p><strong>Time:</strong> {{ observation[8] }}</p>
+
+    <!-- Notes (if empty, show "-") -->
+    <p><strong>Notes:</strong> {{ observation[9] or "" }}</p>
+
+    <!-- Small form where the user can type a note and save it -->
+    <form action="/observations/{{ observation[0] }}/edit" method="POST">
+
+        <input type="text" name="notes" placeholder="Add note">
+        <button type="submit">Save</button>
+
+    </form>
+
+    <!-- Back button to go to all observations -->
+    <a href="/observations">Observations</a>
+
+</div>
+
+{% endblock %}  <!-- End of page content -->
