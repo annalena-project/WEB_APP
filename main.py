@@ -1,4 +1,10 @@
+# This was my first test script – used to figure out how the Open-Meteo API works
+# before building the full app. Tests a single city (Chicago) and prints the results.
+
 import requests
+
+#------------------------- Geocoding API ---------------------------------------------
+# 1. Find the coordinates for Chicago 
 
 URL = "https://geocoding-api.open-meteo.com/v1/search"
 
@@ -19,6 +25,9 @@ first_result = result[0]
 latitude = first_result["latitude"]
 longitude = first_result["longitude"]
 
+#------------------------ Weather API -------------------------------------------------
+# 2. Use the coordinates to get current weather data
+
 print("latitude:", latitude)
 print("longitude:", longitude)
 
@@ -33,6 +42,9 @@ forecast_response = requests.get(Forcaste_URL, params = forecast_parameters, tim
 forecast_data = forecast_response.json()
 
 print(forecast_response.status_code)
+
+#------------------------- WetaherReport Class --------------------------------------------
+# 3. Store all the data in a WetaherReport object 
 
 class WeatherReport:
     def __init__(self, city, country, latitude, longitude, temperature, elevation, windspeed, observation_time):
@@ -55,6 +67,9 @@ report = WeatherReport(
     windspeed=forecast_data["current_weather"]["windspeed"],
     observation_time=forecast_data["current_weather"]["time"]
 )
+
+#------------------------- Print Results --------------------------------------------------
+# 4. Print everything to check that it all works 
 
 print("city:", report.city)
 print("country:", report.country)
