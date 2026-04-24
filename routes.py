@@ -13,6 +13,7 @@ db = DatabaseManager()
 
 # Create the Flask app
 app = Flask(__name__)  
+
 #------------------- Home Page ----------------------------------------------------------------
 @app.route("/")
 def home():
