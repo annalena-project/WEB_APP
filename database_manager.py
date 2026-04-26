@@ -1,8 +1,8 @@
-# This file connects to the database and handles all database operations
+# database_manager.py – connects to the database and handles all database operations
 
 import psycopg2                    # To connect to PostgreSQL database
-import os                          # Get hidden values (like password)
-from dotenv import load_dotenv     # To load the .env file
+import os                          # Get acces to hidden values (like password)
+from dotenv import load_dotenv     # To load the .env file containing log in details
 
 # Load the .env file to be able to use our login details 
 load_dotenv()
@@ -26,7 +26,7 @@ class WeatherReport:
         self.observation_time = observation_time
 
 #--------------------- Database Manager --------------------------------------------------
-# This class handles everything using our login details 
+# This class handles everything using login details 
 class DatabaseManager:
     def __init__(self): 
         # Connect to the database using login details 
@@ -49,13 +49,13 @@ class DatabaseManager:
     def get_all_observations(self):
         # Get all observations from the database 
         self.cur.execute("SELECT * FROM observation;")
-        results = self.cur.fetchall()
+        results = self.cur.fetchall()   # Fetch all rows from the database and store them as a list
         return results
     
     def get_observation_by_id(self, id):
-        # Get one specific observation by ID number 
+        # Get one specific observation from database by ID number 
         self.cur.execute("SELECT * FROM observation WHERE id_number = %s;", (id,))
-        result = self.cur.fetchone()
+        result = self.cur.fetchone()    # Fetch only one row from the database
         return result 
     
     def update(self, id, latitude, longitude):
