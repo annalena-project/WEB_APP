@@ -1,12 +1,17 @@
-{% extends "base.html" %}   <!-- Uses base.html hedaer -->
+<!-- observations.html – shows all observations stored in the database -->
+
+{% extends "base.html" %}   <!-- Uses layout from base.html header -->
 
 {% block content %} <!-- Start of this page content -->
 
+<!-- div box that wraps all the content on this page and adds space at the top -->
 <div class="container mt-5">
 
     <h3>All Observations</h3>
 
-    <!-- Search by ID – sends the user to /observations/<id> --> 
+    <!-- Search box – type an ID number and press Search -->
+    <!-- Flask receives the ID and runs the show_observation route in routes.py -->
+    <!-- I gets the correct observation from the database and shows it on show_observation.html -->
     <form onsubmit="this.action='/observations/' + this.elements['id'].value">
         <input type="number" name="id" placeholder="Enter ID">
         <button type="submit">Search</button>
@@ -30,7 +35,7 @@
         </thead>
 
         <tbody>
-             <!-- Loop through every observation and show it as a table row -->
+             <!-- Jinja2 Loop goes through every observation in the database and show it as a table row -->
             {% for row in data %}
             <tr>
                 <!-- ID Number -->
@@ -53,7 +58,7 @@
                  <td>{{ row[9] or "" }}</td>
                 <!-- Action Button -->
                  <td>
-                    <!-- Delete button – removes this observation from the database -->
+                    <!-- Delete button – sends a POST request to the delete_observation route in routes.py -->
                     <form action="/observations/{{ row[0] }}/delete" method="POST" style="display:inline;">
                         <button type="submit"> Delete</button>
                     </form>

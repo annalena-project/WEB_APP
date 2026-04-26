@@ -1,8 +1,11 @@
-{% extends "base.html" %}   <!-- Uses base.html hedaer -->
+<!-- index.html – The home page where users can search for live weather data -->
+
+{% extends "base.html" %}   <!-- Uses layout from base.html header -->
 
 {% block content %} <!-- Start of this page content -->
 
-<!-- Hero section - Big minage + Text -->
+<!-- Hero section -->
+<!-- Big image + Text  -->
  <div style="
     height: 350px; 
     background-image: url('/static/sky.png');
@@ -23,18 +26,21 @@
 <!-- Add New Observation box -->
  <h5>Add New Observation</h5>
 
+<!-- Search Box - send city and country to the /ingest route in routes.py file -->
+<!-- /ingest route fetches live weather data and saves it to the database -->
+<!-- HTML <form> – sends city and country to Flask using POST when the user clicks the button -->
 <form action="/ingest" method="POST">
     <div style="display: flex; gap: 10px; margin-top: 10px;">
         <!-- City input -->
-        <input type="text" name="city" placeholder="City">
+        <input type="text" name="city" placeholder="City" required>
         <!-- Country input -->
-        <input type="text" name="country" placeholder="Country">
+        <input type="text" name="country" placeholder="Country" required>
         <!-- Button -->
         <button class="btn" type="submit">Get Weather</button>
     </div>
 </form>
 
-<!-- Show result if weather was fetched -->
+<!-- Jinja2 - Show result of weather that was fetched, but only if the search was succesful -->
 {% if weather %}
 <div style="margin-top: 20px; padding: 1rem; border: 1px solid #ddd; border-radius: 5px;">
     <h5>{{ weather.city }}, {{ weather.country }}</h5>
@@ -45,6 +51,6 @@
     <p>Time: {{ weather.observation_time }}</p>
     
 </div>
-{% endif %}
+{% endif %} <!-- End of the Jinja2 if block – stops the weather result from showing -->
 
-{% endblock %}
+{% endblock %}  <!-- End of this page's content block -->

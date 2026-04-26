@@ -1,36 +1,38 @@
-{% extends "base.html" %}  <!-- Use the main layout (navbar, styling) -->
+<!-- show_observation.html – shows details for one specific observation -->
+
+{% extends "base.html" %}  <!-- Uses layout from base.html header -->
 
 {% block content %}  <!-- Start of this page content -->
 
+<!-- Box that wraps all content on this page and adds space at the top -->
 <div class="container mt-5">
 
     <!-- Page title -->
     <h3>Observation Details</h3>
 
-    <!-- Show data from ONE observation -->
-    <!-- observation = the data we sent from Flask -->
+    <!-- Flask runs the show_observation route in routes.py which fetches the observation from the database -->
+    <!-- Then sends the data to show_observation.html as a list where each number matches a column []-->
 
-    <p><strong>ID:</strong> {{ observation[0] }}</p> <!-- ID number -->
-    <p><strong>City:</strong> {{ observation[1] }}</p> <!-- City name -->
-    <p><strong>Country:</strong> {{ observation[2] }}</p> <!-- Country -->
-
+    <!-- ID number -->
+    <p><strong>ID:</strong> {{ observation[0] }}</p> 
+    <!-- City name -->
+    <p><strong>City:</strong> {{ observation[1] }}</p> 
+    <!-- Country -->
+    <p><strong>Country:</strong> {{ observation[2] }}</p>
     <!-- Longitude + Latitude -->
-     <p><strong>Latitude:</strong> {{ observation[3] }}</p>
+    <p><strong>Latitude:</strong> {{ observation[3] }}</p>
     <p><strong>Longitude:</strong> {{ observation[4] }}</p>
-
     <!-- Temperature (we show Celcius) -->
     <p><strong>Temperature:</strong> {{ observation[5] }}°C</p>
-
     <!-- Wind speed -->
     <p><strong>Wind:</strong> {{ observation[7] }} km/h</p>
-
     <!-- Time when observation was saved -->
     <p><strong>Time:</strong> {{ observation[8] }}</p>
-
     <!-- Notes (if empty, show "-") -->
     <p><strong>Notes:</strong> {{ observation[9] or "" }}</p>
 
-    <!-- Small form where the user can type a note and save it -->
+    <!-- Note box + Save button -->
+    <!-- Sends the note to the edit_observation route in routes.py which saves it to the database  -->
     <form action="/observations/{{ observation[0] }}/edit" method="POST">
 
         <input type="text" name="notes" placeholder="Add note">
