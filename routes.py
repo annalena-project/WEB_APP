@@ -89,6 +89,7 @@ def edit_observation(observation_id):
         db.update_notes(observation_id, notes)
         # After saving the note, send the user back to the observations page (observations.html)
         return redirect(url_for("observations"))
+    # If not saving, stay on the same page and show the observation
     else:
         return render_template("show_observation.html", observation=data)
     

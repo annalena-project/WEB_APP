@@ -8,7 +8,7 @@ from dotenv import load_dotenv     # To load the .env file containing log in det
 load_dotenv()
 
 username = os.getenv("DB_USER")         # Databse username 
-password = os.getenv("password")        # Get hidden values (such as password)    
+password = os.getenv("password")        # Database password    
 database = os.getenv("DATABASE_URL")    # Database name    
 
 #--------------------- Weather Report ----------------------------------------------------
