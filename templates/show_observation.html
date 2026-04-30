@@ -13,22 +13,14 @@
     <!-- Flask runs the show_observation route in routes.py which fetches the observation from the database -->
     <!-- Then sends the data to show_observation.html as a list where each number matches a column []-->
 
-    <!-- ID number -->
     <p><strong>ID:</strong> {{ observation[0] }}</p> 
-    <!-- City name -->
     <p><strong>City:</strong> {{ observation[1] }}</p> 
-    <!-- Country -->
     <p><strong>Country:</strong> {{ observation[2] }}</p>
-    <!-- Longitude + Latitude -->
     <p><strong>Latitude:</strong> {{ observation[3] }}</p>
     <p><strong>Longitude:</strong> {{ observation[4] }}</p>
-    <!-- Temperature (we show Celcius) -->
     <p><strong>Temperature:</strong> {{ observation[5] }}°C</p>
-    <!-- Wind speed -->
     <p><strong>Wind:</strong> {{ observation[7] }} km/h</p>
-    <!-- Time when observation was saved -->
     <p><strong>Time:</strong> {{ observation[8] }}</p>
-    <!-- Notes (if empty, show "-") -->
     <p><strong>Notes:</strong> {{ observation[9] or "" }}</p>
 
     <!-- Note box + Save button -->

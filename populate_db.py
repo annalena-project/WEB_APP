@@ -18,7 +18,7 @@ cities = [
     ("Amsterdam", "Netherlands")
 ]
 
-#--------------------- Fetch And Save Weather Data -----------------------------
+#--------------------- Fetch And Save Weather Data ----------------------------- 
 
 # Create database connection 
 db = DatabaseManager()      
